@@ -6,4 +6,7 @@
     <string name="history">History</string>
     <string name="account">Account</string>
     <string name="active_loan">Active Loan</string>
+    <string name="logout">Logout</string>
+    <string name="block_card">Block Card</string>
+    <string name="tap_history">Tap History</string>
 </resources>
