@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">SelfLoanApps</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loans">Loans</string>
+    <string name="history">History</string>
+    <string name="account">Account</string>
+    <string name="active_loan">Active Loan</string>
 </resources>
