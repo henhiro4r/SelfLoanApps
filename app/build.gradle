@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-android-extensions'
-    id "androidx.navigation.safeargs.kotlin"
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -58,6 +58,7 @@ dependencies {
     def retrofitVersion = '2.6.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.5.0"
 
     def lifecycle_version = "2.3.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -65,4 +66,8 @@ dependencies {
 
     def arch_version = "2.1.0"
     testImplementation "androidx.arch.core:core-testing:$arch_version"
+
+    def coroutines_version = "1.4.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 }

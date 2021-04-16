@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             setOf(R.id.nav_active_loan, R.id.nav_history, R.id.nav_account)
         )
 
+        setSupportActionBar(mainToolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
