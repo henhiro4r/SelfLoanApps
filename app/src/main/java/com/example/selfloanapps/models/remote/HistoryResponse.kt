@@ -1,4 +1,8 @@
 package com.example.selfloanapps.models.remote
 
-class HistoryResponse {
-}
+import com.example.selfloanapps.models.local.Loan
+
+data class HistoryResponse(
+    val loanHistories: MutableList<Loan>,
+    val count: Int
+)

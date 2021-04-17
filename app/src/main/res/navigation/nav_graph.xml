@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nav_active_loan">
+    app:startDestination="@id/splashFragment">
 
     <fragment
         android:id="@+id/nav_active_loan"
@@ -19,5 +19,42 @@
         android:id="@+id/nav_account"
         android:name="com.example.selfloanapps.ui.account.AccountFragment"
         android:label="@string/account"
-        tools:layout="@layout/fragment_account" />
+        tools:layout="@layout/fragment_account" >
+        <action
+            android:id="@+id/action_nav_account_to_tapHistoryFragment"
+            app:destination="@id/tapHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.selfloanapps.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_nav_active_loan"
+            app:destination="@id/nav_active_loan"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.selfloanapps.ui.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_nav_active_loan"
+            app:destination="@id/nav_active_loan"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/tapHistoryFragment"
+        android:name="com.example.selfloanapps.ui.account.taps.TapHistoryFragment"
+        android:label="fragment_tap_history"
+        tools:layout="@layout/fragment_tap_history" />
 </navigation>

@@ -1,4 +1,7 @@
 package com.example.selfloanapps.models.local
 
-class TapHistory {
-}
+data class TapHistory(
+    val id: Int?,
+    val timestamp: String?,
+    val location: String?
+)

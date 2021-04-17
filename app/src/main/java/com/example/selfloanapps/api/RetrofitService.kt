@@ -1,6 +1,7 @@
-package com.example.selfloanapps.network
+package com.example.selfloanapps.api
 
 import com.example.selfloanapps.utils.Constants
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,6 +13,11 @@ class RetrofitService {
             val logging = HttpLoggingInterceptor()
             logging.setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
+                .addInterceptor( Interceptor{ chain ->
+                    val builder = chain.request().newBuilder()
+                    builder.header("Accept", "application/json")
+                    return@Interceptor chain.proceed(builder.build())
+                })
                 .addInterceptor(logging)
                 .build()
             Retrofit.Builder()

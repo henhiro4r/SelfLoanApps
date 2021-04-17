@@ -1,4 +1,8 @@
 package com.example.selfloanapps.models.remote
 
-class TapHistoryResponse {
-}
+import com.example.selfloanapps.models.local.TapHistory
+
+data class TapHistoryResponse(
+    val tapHistories: MutableList<TapHistory>,
+    val count: Int
+)

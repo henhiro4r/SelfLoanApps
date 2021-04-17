@@ -9,27 +9,25 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.selfloanapps.R
+import com.example.selfloanapps.databinding.FragmentAccountBinding
+import com.example.selfloanapps.databinding.FragmentLoginBinding
 import kotlinx.android.synthetic.main.fragment_account.*
 
-class AccountFragment : Fragment() {
+class AccountFragment : Fragment(R.layout.fragment_account) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_account, container, false)
-    }
+    private lateinit var binding: FragmentAccountBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAccountBinding.bind(view)
 
-        btnLogout.setOnClickListener {
+        binding.btnLogout.setOnClickListener {
             showConfirmation(view)
         }
     }
 
     private fun showConfirmation(view: View) {
-        val builder =  AlertDialog.Builder(view.context)
+        val builder = AlertDialog.Builder(view.context)
         builder.setTitle("Confirmation")
         builder.setMessage("Are sure want to logout?")
         builder.setPositiveButton("Yes") { _, _ ->
