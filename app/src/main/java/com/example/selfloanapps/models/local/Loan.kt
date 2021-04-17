@@ -1,5 +1,7 @@
 package com.example.selfloanapps.models.local
 
+import java.io.Serializable
+
 data class Loan(
     val id: Int?,
     val book: MutableList<Book>,
@@ -8,4 +10,4 @@ data class Loan(
     val loanDate: String?,
     val fine: String?,
     val status: Boolean?
-)
+) : Serializable

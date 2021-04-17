@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.selfloanapps.models.remote.UserResponse
 import com.example.selfloanapps.repository.MainRepository
 import com.example.selfloanapps.utils.LoginUiState
-import com.example.selfloanapps.utils.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

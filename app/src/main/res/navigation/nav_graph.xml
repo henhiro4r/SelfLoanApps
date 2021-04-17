@@ -9,12 +9,20 @@
         android:id="@+id/nav_active_loan"
         android:name="com.example.selfloanapps.ui.activeLoan.ActiveLoanFragment"
         android:label="@string/active_loan"
-        tools:layout="@layout/fragment_active_loan" />
+        tools:layout="@layout/fragment_active_loan" >
+        <action
+            android:id="@+id/action_nav_active_loan_to_loanDetailFragment"
+            app:destination="@id/loanDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_history"
         android:name="com.example.selfloanapps.ui.history.HistoryFragment"
         android:label="@string/history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_nav_history_to_loanDetailFragment"
+            app:destination="@id/loanDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/nav_account"
         android:name="com.example.selfloanapps.ui.account.AccountFragment"
@@ -57,4 +65,13 @@
         android:name="com.example.selfloanapps.ui.account.taps.TapHistoryFragment"
         android:label="fragment_tap_history"
         tools:layout="@layout/fragment_tap_history" />
+    <fragment
+        android:id="@+id/loanDetailFragment"
+        android:name="com.example.selfloanapps.ui.detail.LoanDetailFragment"
+        android:label="fragment_loan_detail"
+        tools:layout="@layout/fragment_loan_detail" >
+        <argument
+            android:name="loan"
+            app:argType="com.example.selfloanapps.models.local.Loan" />
+    </fragment>
 </navigation>
