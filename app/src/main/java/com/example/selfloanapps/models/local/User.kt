@@ -5,6 +5,7 @@ data class User(
     val nim: String?,
     val email: String?,
     val name: String?,
+    val major: String?,
     val enrollmentYear: String?,
     val card: Card
 )

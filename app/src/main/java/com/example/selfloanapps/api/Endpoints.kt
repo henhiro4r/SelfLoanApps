@@ -19,6 +19,9 @@ interface Endpoints {
     @POST(Constants.LOGOUT_URL)
     suspend fun logout(@Header("Authorization") bearerToken: String)
 
+    @POST(Constants.LOGOUT_URL)
+    suspend fun blockCard(@Header("Authorization") bearerToken: String)
+
     @GET(Constants.ACTIVE_LOAN_URL)
     suspend fun getLoan(@Header("Authorization") bearerToken: String): Response<ActiveLoanResponse>
 

@@ -1,12 +1,14 @@
 package com.example.selfloanapps.utils
 
-import kotlinx.coroutines.flow.Flow
+import com.example.selfloanapps.models.local.User
 
 interface PrefsManager {
-    fun getEmail(): Flow<String>
-    fun getPassword(): Flow<String>
-    fun getAccessToken(): Flow<String>
-    fun getRefreshToken(): Flow<String>
+    fun getEmail(): String
+    fun getAccessToken(): String
+    fun getRefreshToken(): String
+    fun getName(): String
+    fun getNim(): String
+    fun getMajor(): String
 
-    suspend fun storeData(email: String, password: String, accessToken: String, refreshToken: String)
+    suspend fun storeData(user: User, tokenType: String, accessToken: String, refreshToken: String)
 }

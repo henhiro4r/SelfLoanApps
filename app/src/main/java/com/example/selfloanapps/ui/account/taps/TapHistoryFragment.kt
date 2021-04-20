@@ -26,6 +26,17 @@ class TapHistoryFragment : Fragment(R.layout.fragment_tap_history) {
         // TODO: DO API CALL HERE
     }
 
+    private fun isLoading(loading: Boolean) {
+        when(loading) {
+            true -> {
+                binding.pbTapHistory.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.pbTapHistory.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     private fun setupRecyclerView() {
         tapAdapter = TapAdapter()
         binding.rvTapHistory.apply {

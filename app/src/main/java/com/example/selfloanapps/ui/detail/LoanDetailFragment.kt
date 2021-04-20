@@ -27,6 +27,17 @@ class LoanDetailFragment : Fragment(R.layout.fragment_loan_detail) {
         val loan = args.loan
     }
 
+    private fun isLoading(loading: Boolean) {
+        when(loading) {
+            true -> {
+                binding.pbLoanDetail.visibility = View.VISIBLE
+            }
+            false -> {
+                binding.pbLoanDetail.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     private fun setupRecyclerView() {
         bookAdapter = LoanDetailBookAdapter()
         binding.rvBorrowedBooks.apply {

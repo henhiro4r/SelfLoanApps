@@ -13,9 +13,9 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.selfloanapps.R
 import com.example.selfloanapps.repository.MainRepository
 import com.example.selfloanapps.ui.login.LoginViewModel
-import com.example.selfloanapps.ui.viewModel.LoginViewModelFactory
+import com.example.selfloanapps.ui.viewModelFactory.LoginViewModelFactory
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
-import com.example.selfloanapps.ui.viewModel.SelfLoanViewModelFactory
+import com.example.selfloanapps.ui.viewModelFactory.SelfLoanViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = SelfLoanViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(SelfLoanViewModel::class.java)
 
-        val loginFactory = LoginViewModelFactory(repository)
+        val loginFactory = LoginViewModelFactory(application, repository)
         loginViewModel = ViewModelProvider(this, loginFactory).get(LoginViewModel::class.java)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

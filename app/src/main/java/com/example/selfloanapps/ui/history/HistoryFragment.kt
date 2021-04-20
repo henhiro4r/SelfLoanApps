@@ -1,7 +1,9 @@
 package com.example.selfloanapps.ui.history
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,6 +11,7 @@ import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentHistoryBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
+import com.example.selfloanapps.utils.Resource
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
 
@@ -29,16 +32,35 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
             findNavController().navigate(action)
         }
 
-        // TODO: DO API CALL HERE
+        viewModel.historyLoan.observe(viewLifecycleOwner, { response ->
+            when(response) {
+                is Resource.Success -> {
+                    isLoading(false)
+                    response.data?.let {
+                        historyAdapter.differ.submitList(it.loanHistories.toList())
+                    }
+                }
+                is Resource.Error -> {
+                    isLoading(false)
+                    response.message?.let {
+                        Log.e(TAG, "onViewCreated: $it")
+                        Toast.makeText(activity, "An error occurred $it", Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resource.Loading -> {
+                    isLoading(true)
+                }
+            }
+        })
     }
 
     private fun isLoading(loading: Boolean) {
         when(loading) {
             true -> {
-
+                binding.pbHistory.visibility = View.VISIBLE
             }
             false -> {
-
+                binding.pbHistory.visibility = View.INVISIBLE
             }
         }
     }

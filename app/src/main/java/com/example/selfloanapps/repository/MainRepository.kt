@@ -18,4 +18,7 @@ class MainRepository {
 
     suspend fun getTapHistory(bearerToken: String) =
         RetrofitService.api.getTapHistory(bearerToken)
+
+    suspend fun blockCard(bearerToken: String) =
+        RetrofitService.api.blockCard(bearerToken)
 }
