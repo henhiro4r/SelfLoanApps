@@ -9,4 +9,25 @@
     <string name="logout">Logout</string>
     <string name="block_card">Block Card</string>
     <string name="tap_history">Tap History</string>
+    <string name="transaction_id">Loan#Henry-01/2021</string>
+    <string name="book_list_placeholder">Book Title | Book Title | Book Title</string>
+    <string name="return_date_placeholder">Return date:</string>
+    <string name="return_date_placeholder2">Returned date:</string>
+    <string name="example_date">22 May 2021</string>
+    <string name="example_day_left">- 7 Day</string>
+    <string name="example_timestamp">22 May 2021 11:59</string>
+    <string name="location">Location:</string>
+    <string name="example_loc">Perpustakaan Universitas Ciputra</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email address</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="return_btn">Return</string>
+    <string name="extend">Extend</string>
+    <string name="due_date">Due date:</string>
+    <string name="example_fine">Rp10000</string>
+    <string name="fine">Fine:</string>
+    <string name="borrowed_books">Borrowed Books</string>
+    <string name="loan_status">Overdue</string>
+    <string name="publisher_name">Publisher Name</string>
+    <string name="book_title">Book Title</string>
 </resources>

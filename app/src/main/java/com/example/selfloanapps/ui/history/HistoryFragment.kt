@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentHistoryBinding
 import com.example.selfloanapps.ui.MainActivity
@@ -44,5 +45,9 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
 
     private fun setupRecyclerView() {
         historyAdapter = HistoryAdapter()
+        binding.rvHistoryLoan.apply {
+            adapter = historyAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 }

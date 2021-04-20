@@ -3,6 +3,8 @@ package com.example.selfloanapps.ui.activeLoan
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentActiveLoanBinding
 import com.example.selfloanapps.ui.MainActivity
@@ -21,11 +23,21 @@ class ActiveLoanFragment : Fragment(R.layout.fragment_active_loan) {
         binding = FragmentActiveLoanBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+        setupRecyclerView()
 
+        loanAdapter.setOnItemClickListener {
+            val action = ActiveLoanFragmentDirections.actionNavActiveLoanToLoanDetailFragment(it)
+            findNavController().navigate(action)
+        }
 
+        // TODO: DO API CALL HERE
     }
 
     private fun setupRecyclerView() {
         loanAdapter = ActiveLoanAdapter()
+        binding.rvActiveLoan.apply {
+            adapter = loanAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 }

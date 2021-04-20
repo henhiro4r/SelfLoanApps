@@ -3,6 +3,7 @@ package com.example.selfloanapps.ui.account.taps
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentTapHistoryBinding
 import com.example.selfloanapps.ui.MainActivity
@@ -20,5 +21,16 @@ class TapHistoryFragment : Fragment(R.layout.fragment_tap_history) {
         binding = FragmentTapHistoryBinding.bind(view)
 
         viewModel = (activity as MainActivity).viewModel
+        setupRecyclerView()
+
+        // TODO: DO API CALL HERE
+    }
+
+    private fun setupRecyclerView() {
+        tapAdapter = TapAdapter()
+        binding.rvTapHistory.apply {
+            adapter = tapAdapter
+            layoutManager = LinearLayoutManager(activity)
+        }
     }
 }

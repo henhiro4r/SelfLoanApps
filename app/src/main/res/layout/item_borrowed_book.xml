@@ -12,39 +12,28 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/cvTapTimeStamp"
+            android:id="@+id/cvTvBookTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/example_timestamp"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:text="@string/book_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/cvTapLocPh"
+            android:id="@+id/cvTvPublisherName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
-            android:text="@string/location"
+            android:text="@string/publisher_name"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/cvTapTimeStamp"
-            app:layout_constraintTop_toBottomOf="@+id/cvTapTimeStamp" />
-
-        <TextView
-            android:id="@+id/cvTapLoc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/example_loc"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/cvTapLocPh"
-            app:layout_constraintStart_toEndOf="@+id/cvTapLocPh"
-            app:layout_constraintTop_toTopOf="@+id/cvTapLocPh" />
-
+            app:layout_constraintStart_toStartOf="@+id/cvTvBookTitle"
+            app:layout_constraintTop_toBottomOf="@+id/cvTvBookTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.cardview.widget.CardView>

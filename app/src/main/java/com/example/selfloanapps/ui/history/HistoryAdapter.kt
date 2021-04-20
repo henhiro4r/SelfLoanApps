@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.selfloanapps.R
+import com.example.selfloanapps.databinding.ItemHistoryBinding
 import com.example.selfloanapps.models.local.Loan
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
-    inner class HistoryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class HistoryViewHolder(val binding: ItemHistoryBinding): RecyclerView.ViewHolder(binding.root)
 
     private val differCallBack = object : DiffUtil.ItemCallback<Loan>() {
         override fun areItemsTheSame(oldItem: Loan, newItem: Loan): Boolean {
@@ -27,8 +28,8 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder {
         return HistoryViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_history,
+            ItemHistoryBinding.inflate(
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
@@ -37,8 +38,10 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val loan = differ.currentList[position]
-        holder.itemView.apply {
-            // TODO: BIND DATA TO VIEW HERE
+        holder.binding.cvTvLoanId.text = ""
+        holder.binding.cvTvReturnDate.text = ""
+        holder.binding.cvTvLoanStatus.text = ""
+        holder.binding.cvHistory.apply {
             setOnClickListener {
                 onItemClickListener?.let { it(loan) }
             }

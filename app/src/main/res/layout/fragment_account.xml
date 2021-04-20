@@ -40,8 +40,10 @@
                     android:id="@+id/ibBlock"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:background="@drawable/bg_image_button"
+                    android:padding="8dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_book" />
+                    android:src="@drawable/ic_block" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -67,8 +69,10 @@
                     android:id="@+id/ibTapHistory"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:background="@drawable/bg_image_button"
+                    android:padding="8dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_book" />
+                    android:src="@drawable/ic_card" />
 
                 <TextView
                     android:layout_width="wrap_content"

@@ -1,17 +1,16 @@
 package com.example.selfloanapps.ui.activeLoan
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.selfloanapps.R
+import com.example.selfloanapps.databinding.ItemActiveLoanBinding
 import com.example.selfloanapps.models.local.Loan
 
 class ActiveLoanAdapter : RecyclerView.Adapter<ActiveLoanAdapter.ActiveViewHolder>() {
 
-    inner class ActiveViewHolder(itemview: View): RecyclerView.ViewHolder(itemview)
+    inner class ActiveViewHolder(val binding: ItemActiveLoanBinding): RecyclerView.ViewHolder(binding.root)
 
     private val differCallBack = object : DiffUtil.ItemCallback<Loan>() {
         override fun areItemsTheSame(oldItem: Loan, newItem: Loan): Boolean {
@@ -27,8 +26,8 @@ class ActiveLoanAdapter : RecyclerView.Adapter<ActiveLoanAdapter.ActiveViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveViewHolder {
         return ActiveViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_active_loan,
+            ItemActiveLoanBinding.inflate(
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
@@ -37,8 +36,11 @@ class ActiveLoanAdapter : RecyclerView.Adapter<ActiveLoanAdapter.ActiveViewHolde
 
     override fun onBindViewHolder(holder: ActiveViewHolder, position: Int) {
         val loan = differ.currentList[position]
-        holder.itemView.apply {
-            // TODO: BIND DATA TO VIEW HERE
+        holder.binding.cvTvLoanId.text = ""
+        holder.binding.cvTvBookListPrev.text = ""
+        holder.binding.cvTvReturnDate.text = ""
+        holder.binding.cvTvDaysLeft.text = ""
+        holder.binding.cvActiveLoan.apply {
             setOnClickListener {
                 onItemClickListener?.let { it(loan) }
             }

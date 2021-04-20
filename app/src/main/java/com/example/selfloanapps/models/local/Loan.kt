@@ -4,7 +4,7 @@ import java.io.Serializable
 
 data class Loan(
     val id: Int?,
-    val book: MutableList<Book>,
+    val book: List<Book>,
     val returnDate: String?,
     val dueDate: String?,
     val loanDate: String?,
