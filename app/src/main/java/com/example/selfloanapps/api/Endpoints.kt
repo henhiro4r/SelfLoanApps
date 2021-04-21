@@ -6,14 +6,12 @@ import com.example.selfloanapps.models.remote.TapHistoryResponse
 import com.example.selfloanapps.models.remote.UserResponse
 import com.example.selfloanapps.utils.Constants
 import retrofit2.Response
-import retrofit2.http.Field
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface Endpoints {
 
     @POST(Constants.LOGIN_URL)
+    @FormUrlEncoded
     suspend fun login(@Field("email") email: String, @Field("password") password: String): Response<UserResponse>
 
     @POST(Constants.LOGOUT_URL)

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -29,6 +30,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentLoginBinding.bind(view)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         viewModel = (activity as MainActivity).loginViewModel
 
@@ -75,10 +77,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun isLoading(loading: Boolean) {
         when(loading) {
             true -> {
+                binding.btnLogin.visibility = View.INVISIBLE
                 binding.pbLogin.visibility = View.VISIBLE
             }
             false -> {
                 binding.pbLogin.visibility = View.INVISIBLE
+                binding.btnLogin.visibility = View.VISIBLE
             }
         }
     }

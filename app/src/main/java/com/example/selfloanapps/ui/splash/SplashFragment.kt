@@ -11,15 +11,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.selfloanapps.R
+import com.example.selfloanapps.utils.PrefsManagerHelper
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var preferenceHelper = PrefsManagerHelper(requireActivity())
+
         Handler(Looper.getMainLooper()).postDelayed({
-            val action: NavDirections?
-            action = SplashFragmentDirections.actionSplashFragmentToNavActiveLoan()
+            val action: NavDirections = if (preferenceHelper.getAccessToken().isEmpty()) {
+                SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+            } else {
+                SplashFragmentDirections.actionSplashFragmentToNavActiveLoan()
+            }
             findNavController().navigate(action)
         }, 2000L)
     }

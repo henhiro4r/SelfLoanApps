@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.selfloanapps.ui.login.LoginFragment"
-        android:label="fragment_login"
+        android:label="@string/sign_in"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_nav_active_loan"

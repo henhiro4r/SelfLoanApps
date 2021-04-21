@@ -30,4 +30,5 @@
     <string name="loan_status">Overdue</string>
     <string name="publisher_name">Publisher Name</string>
     <string name="book_title">Book Title</string>
+    <string name="sign_in">Sign In</string>
 </resources>
