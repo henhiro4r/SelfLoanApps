@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "80305839680",
+    "project_id": "selfloan-2a831",
+    "storage_bucket": "selfloan-2a831.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80305839680:android:99d465103259e9905989a5",
+        "android_client_info": {
+          "package_name": "com.example.selfloanapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80305839680-t8dpos48p8hjbfqn2d3k68j85609rtn8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnMwngO6QWnpJS7X0NCCVfeYC85XVcFv0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80305839680-t8dpos48p8hjbfqn2d3k68j85609rtn8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

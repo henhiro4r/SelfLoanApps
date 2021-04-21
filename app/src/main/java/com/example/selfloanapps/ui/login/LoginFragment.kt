@@ -13,6 +13,8 @@ import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentLoginBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.utils.LoginUiState
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
@@ -47,7 +49,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         binding.btnLogin.setOnClickListener {
-            viewModel.login(email, password)
+            getFCMToken()
+            if (email.isEmpty() && password.isEmpty()) {
+                Toast.makeText(activity, "Please input email and password", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.login(email, password)
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
@@ -72,6 +79,24 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
         }
+    }
+
+    private fun getFCMToken() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            // Get new FCM registration token
+            val token = task.result
+
+            // Log and toast
+            val msg = getString(R.string.msg_token_fmt, token)
+            Log.d(TAG, msg)
+            Log.d(TAG, "token: $token")
+            Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
+        })
     }
 
     private fun isLoading(loading: Boolean) {
