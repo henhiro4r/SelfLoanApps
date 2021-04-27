@@ -4,8 +4,8 @@ import com.example.selfloanapps.api.RetrofitService
 
 class MainRepository {
 
-    suspend fun login(email: String, password: String) =
-        RetrofitService.api.login(email, password)
+    suspend fun login(email: String, password: String, messageToken: String) =
+        RetrofitService.api.login(email, password, messageToken)
 
     suspend fun getLoan(bearerToken: String) =
         RetrofitService.api.getLoan(bearerToken)

@@ -2,11 +2,9 @@ package com.example.selfloanapps.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.core.content.edit
-import androidx.preference.PreferenceManager
 import com.example.selfloanapps.models.local.User
 
-class PrefsManagerHelper() : PrefsManager {
+class PrefsManagerHelper(context: Context) {
 
     companion object {
         private const val USER_EMAIL = "user_email"
@@ -14,69 +12,49 @@ class PrefsManagerHelper() : PrefsManager {
         private const val USER_NIM = "user_nim"
         private const val USER_MAJOR = "user_major"
         private const val ACCESS_TOKEN = "access_token"
-        private const val REFRESH_TOKEN = "refresh_token"
-
-        private var prefs: SharedPreferences? = null
-
-        @Volatile
-        private var instance: PrefsManagerHelper? = null
-        private var LOCK = Any()
-
-        operator fun invoke(context: Context): PrefsManagerHelper = instance ?: synchronized(LOCK) {
-            instance ?: buildHelper(context).also {
-                instance = it
-            }
-        }
-
-        private fun buildHelper(context: Context): PrefsManagerHelper {
-            prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            return PrefsManagerHelper()
-        }
+        private const val APP_PREFS = "app_prefs"
     }
 
-    override fun getEmail(): String {
-        return prefs?.getString(USER_EMAIL, "").toString()
+    private val preferences: SharedPreferences = context.getSharedPreferences(APP_PREFS, Context.MODE_PRIVATE)
+
+
+    fun getEmail() {
+        preferences.getString(USER_EMAIL, "")
     }
 
-    override fun getAccessToken(): String {
-        return prefs?.getString(ACCESS_TOKEN, "").toString()
+    fun getAccessToken(): String {
+        return preferences.getString(ACCESS_TOKEN, "").toString()
     }
 
-    override fun getRefreshToken(): String {
-        return prefs?.getString(REFRESH_TOKEN, "").toString()
+    fun getName(): String {
+        return preferences.getString(USER_NAME, "").toString()
     }
 
-    override fun getName(): String {
-        return prefs?.getString(USER_NAME, "").toString()
+    fun getNim(): String {
+        return preferences.getString(USER_NIM, "").toString()
     }
 
-    override fun getNim(): String {
-        return prefs?.getString(USER_NIM, "").toString()
+    fun getMajor(): String {
+        return preferences.getString(USER_MAJOR, "").toString()
     }
 
-    override fun getMajor(): String {
-        return prefs?.getString(USER_MAJOR, "").toString()
-    }
-
-    override suspend fun storeData(
-        user: User,
-        tokenType: String,
-        accessToken: String,
-        refreshToken: String
+    fun storeData(
+        user: User?,
+        tokenType: String?,
+        accessToken: String?,
     ) {
-        prefs?.edit(commit = true) {
-            putString(USER_EMAIL, user.email)
-            putString(USER_NAME, user.name)
-            putString(USER_MAJOR, user.major)
-            putString(USER_NIM, user.nim)
-            putString(ACCESS_TOKEN, "$tokenType $accessToken")
-            putString(REFRESH_TOKEN, refreshToken)
-        }
+        preferences.edit()
+            .putString(USER_EMAIL, user?.email)
+            .putString(USER_NAME, user?.name)
+            .putString(USER_MAJOR, user?.major)
+            .putString(USER_NIM, user?.nim)
+            .putString(ACCESS_TOKEN, "$tokenType $accessToken")
+            .apply()
     }
 
     fun clearPref() {
-        prefs?.edit(commit = true) {
-            clear()
-        }
+        preferences.edit()
+            .clear()
+            .apply()
     }
 }

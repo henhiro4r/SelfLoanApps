@@ -38,9 +38,9 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val loan = differ.currentList[position]
-        holder.binding.cvTvLoanId.text = ""
-        holder.binding.cvTvReturnDate.text = ""
-        holder.binding.cvTvLoanStatus.text = ""
+        holder.binding.cvTvLoanId.text = loan.id.toString()
+        holder.binding.cvTvReturnDate.text = loan.returnDate
+        holder.binding.cvTvLoanStatus.text = loan.status
         holder.binding.cvHistory.apply {
             setOnClickListener {
                 onItemClickListener?.let { it(loan) }

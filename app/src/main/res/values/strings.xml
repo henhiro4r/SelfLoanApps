@@ -32,4 +32,5 @@
     <string name="book_title">Book Title</string>
     <string name="sign_in">Sign In</string>
     <string name="msg_token_fmt" translatable="false">FCM registration Token: %s</string>
+    <string name="tap_history_label">Tap History</string>
 </resources>

@@ -1,13 +1,16 @@
 package com.example.selfloanapps.ui.account.taps
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentTapHistoryBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
+import com.example.selfloanapps.utils.Resource
 
 class TapHistoryFragment : Fragment(R.layout.fragment_tap_history) {
 
@@ -23,11 +26,33 @@ class TapHistoryFragment : Fragment(R.layout.fragment_tap_history) {
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
 
-        // TODO: DO API CALL HERE
+        viewModel.getTapHistory()
+
+        viewModel.tapHistory.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    isLoading(false)
+                    response.data?.let {
+                        Log.d(TAG, "onViewCreated: ${it.tapContainer[0].id}")
+                        tapAdapter.differ.submitList(it.tapContainer[0].tapHistory)
+                    }
+                }
+                is Resource.Error -> {
+                    isLoading(false)
+                    response.message?.let {
+                        Log.e(TAG, "onViewCreated: $it")
+                        Toast.makeText(activity, "An error occurred $it", Toast.LENGTH_LONG).show()
+                    }
+                }
+                is Resource.Loading -> {
+                    isLoading(true)
+                }
+            }
+        })
     }
 
     private fun isLoading(loading: Boolean) {
-        when(loading) {
+        when (loading) {
             true -> {
                 binding.pbTapHistory.visibility = View.VISIBLE
             }

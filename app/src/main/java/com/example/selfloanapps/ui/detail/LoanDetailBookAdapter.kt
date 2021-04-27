@@ -37,7 +37,7 @@ class LoanDetailBookAdapter : RecyclerView.Adapter<LoanDetailBookAdapter.BookVie
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = differ.currentList[position]
         holder.binding.cvTvBookTitle.text = book.title
-        holder.binding.cvTvPublisherName.text = book.publisherName
+        holder.binding.cvTvPublisherName.text = book.publisher
     }
 
     override fun getItemCount(): Int {

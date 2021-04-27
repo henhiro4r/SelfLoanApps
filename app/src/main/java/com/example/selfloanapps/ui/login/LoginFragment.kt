@@ -13,12 +13,10 @@ import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentLoginBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.utils.LoginUiState
+import com.example.selfloanapps.utils.PrefsManagerHelper
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -28,6 +26,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private var email: String = ""
     private var password: String = ""
     private val TAG = "LoginFragment"
+    private var helper: PrefsManagerHelper? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,6 +34,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         viewModel = (activity as MainActivity).loginViewModel
+        helper = PrefsManagerHelper(requireActivity())
 
         binding.tlEmail.editText?.addTextChangedListener { editable ->
             if (editable.toString().isNotEmpty()) {
@@ -49,19 +49,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         binding.btnLogin.setOnClickListener {
-            getFCMToken()
             if (email.isEmpty() && password.isEmpty()) {
-                Toast.makeText(activity, "Please input email and password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Please input email and password", Toast.LENGTH_SHORT)
+                    .show()
             } else {
-                viewModel.login(email, password)
+                getFCMToken()
             }
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.loginUiState.collect {
-                when(it) {
+                when (it) {
                     is LoginUiState.Success -> {
                         isLoading(false)
+                        helper?.storeData(it.response.user, it.response.tokenType, it.response.accessToken)
                         val action = LoginFragmentDirections.actionLoginFragmentToNavActiveLoan()
                         findNavController().navigate(action)
                     }
@@ -69,7 +70,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     is LoginUiState.Error -> {
                         isLoading(false)
                         Log.e(TAG, "onViewCreated: ${it.message}")
-                        Toast.makeText(activity, "An error occurred ${it.message}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            activity,
+                            "An error occurred ${it.message}",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
                     is LoginUiState.Loading -> {
@@ -89,10 +94,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             // Get new FCM registration token
-            val token = task.result
+            val token = task.result.toString()
 
             // Log and toast
             val msg = getString(R.string.msg_token_fmt, token)
+            viewModel.login(email, password, token)
             Log.d(TAG, msg)
             Log.d(TAG, "token: $token")
             Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
@@ -100,7 +106,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun isLoading(loading: Boolean) {
-        when(loading) {
+        when (loading) {
             true -> {
                 binding.btnLogin.visibility = View.INVISIBLE
                 binding.pbLogin.visibility = View.VISIBLE

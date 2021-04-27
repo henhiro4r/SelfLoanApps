@@ -2,10 +2,9 @@ package com.example.selfloanapps.utils
 
 class Constants {
     companion object {
-        const val BASE_URL = "https://fusionsvisual.id/"
+        const val BASE_URL = "http://192.168.1.88:8080/SelfLoans/selfloan-server/public/api/"
         const val LOGIN_URL = "login"
         const val LOGOUT_URL = "logout"
-        const val BLOCK_URL = "block-card"
         const val ACTIVE_LOAN_URL = "active-loan"
         const val HISTORY_LOAN_URL = "history-loan"
         const val TAP_HISTORY_URL = "tap-history"

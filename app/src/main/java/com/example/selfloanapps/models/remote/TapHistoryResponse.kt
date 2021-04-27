@@ -1,8 +1,15 @@
 package com.example.selfloanapps.models.remote
 
 import com.example.selfloanapps.models.local.TapHistory
+import com.google.gson.annotations.SerializedName
 
 data class TapHistoryResponse(
-    val tapHistories: MutableList<TapHistory>,
-    val count: Int
+    @SerializedName("data")
+    val tapContainer: List<TapContainer>
+)
+
+data class TapContainer(
+    val id: Int,
+    @SerializedName("tap_history")
+    val tapHistory: List<TapHistory>
 )

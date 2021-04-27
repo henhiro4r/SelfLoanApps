@@ -1,10 +1,10 @@
 package com.example.selfloanapps.models.local
 
+import com.google.gson.annotations.SerializedName
+
 data class Book(
-    val title: String?,
     val isbn: String?,
-    val totalPages: Int?,
-    val publishedAt: String?,
-    val publisherName: String?,
-    val authorName: String?
+    val title: String?,
+    @SerializedName("publisher_name")
+    val publisher: String,
 )

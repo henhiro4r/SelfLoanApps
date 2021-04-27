@@ -7,17 +7,11 @@ data class UserResponse(
     @SerializedName("token_type")
     val tokenType: String?,
 
-    @SerializedName("expires_in")
-    val expireIn: Int?,
-
-    @SerializedName("access_token")
-    val accessToken: String?,
-
-    @SerializedName("refresh_token")
-    val refreshToken: String?,
-
-    @SerializedName("user_data")
+    @SerializedName("user")
     val user: User?,
+
+    @SerializedName("token")
+    val accessToken: String?,
 
     @SerializedName("message")
     val message: String?

@@ -26,6 +26,7 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
 
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
+        viewModel.getHistory()
 
         historyAdapter.setOnItemClickListener {
             val action = HistoryFragmentDirections.actionNavHistoryToLoanDetailFragment(it)

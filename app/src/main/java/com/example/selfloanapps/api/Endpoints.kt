@@ -1,9 +1,6 @@
 package com.example.selfloanapps.api
 
-import com.example.selfloanapps.models.remote.ActiveLoanResponse
-import com.example.selfloanapps.models.remote.HistoryResponse
-import com.example.selfloanapps.models.remote.TapHistoryResponse
-import com.example.selfloanapps.models.remote.UserResponse
+import com.example.selfloanapps.models.remote.*
 import com.example.selfloanapps.utils.Constants
 import retrofit2.Response
 import retrofit2.http.*
@@ -12,13 +9,17 @@ interface Endpoints {
 
     @POST(Constants.LOGIN_URL)
     @FormUrlEncoded
-    suspend fun login(@Field("email") email: String, @Field("password") password: String): Response<UserResponse>
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("messageToken") messageToken: String,
+    ): Response<UserResponse>
 
     @POST(Constants.LOGOUT_URL)
-    suspend fun logout(@Header("Authorization") bearerToken: String)
+    suspend fun logout(@Header("Authorization") bearerToken: String): Response<MessageOnlyResponse>
 
-    @POST(Constants.LOGOUT_URL)
-    suspend fun blockCard(@Header("Authorization") bearerToken: String)
+    @POST(Constants.BLOCK_CARD_URL)
+    suspend fun blockCard(@Header("Authorization") bearerToken: String): Response<MessageOnlyResponse>
 
     @GET(Constants.ACTIVE_LOAN_URL)
     suspend fun getLoan(@Header("Authorization") bearerToken: String): Response<ActiveLoanResponse>

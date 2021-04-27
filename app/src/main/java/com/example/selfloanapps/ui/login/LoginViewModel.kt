@@ -21,9 +21,9 @@ class LoginViewModel(
     private var preferenceHelper = PrefsManagerHelper(getApplication())
     val loginUiState: StateFlow<LoginUiState> = _loginUiState
 
-    fun login(email: String, password: String) = viewModelScope.launch {
+    fun login(email: String, password: String, messageToken: String) = viewModelScope.launch {
         _loginUiState.value = LoginUiState.Loading
-        val response = repository.login(email, password)
+        val response = repository.login(email, password, messageToken)
         _loginUiState.value = handleLoginResponse(response)
     }
 
@@ -33,18 +33,14 @@ class LoginViewModel(
                 if (results.user != null
                     && results.tokenType?.isNotEmpty() == true
                     && results.accessToken?.isNotEmpty() == true
-                    && results.refreshToken?.isNotEmpty() == true
                 ) {
-                    viewModelScope.launch {
-                        preferenceHelper.storeData(
-                            results.user,
-                            results.tokenType,
-                            results.accessToken,
-                            results.refreshToken
-                        )
-                    }
+                    preferenceHelper.storeData(
+                        results.user,
+                        results.tokenType,
+                        results.accessToken,
+                    )
                 }
-                return LoginUiState.Success
+                return LoginUiState.Success(response = results)
             }
         }
 

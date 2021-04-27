@@ -31,6 +31,11 @@
         <action
             android:id="@+id/action_nav_account_to_tapHistoryFragment"
             app:destination="@id/tapHistoryFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_loginFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -40,7 +45,8 @@
         <action
             android:id="@+id/action_loginFragment_to_nav_active_loan"
             app:destination="@id/nav_active_loan"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/splashFragment"
@@ -63,7 +69,7 @@
     <fragment
         android:id="@+id/tapHistoryFragment"
         android:name="com.example.selfloanapps.ui.account.taps.TapHistoryFragment"
-        android:label="fragment_tap_history"
+        android:label="@string/tap_history_label"
         tools:layout="@layout/fragment_tap_history" />
     <fragment
         android:id="@+id/loanDetailFragment"

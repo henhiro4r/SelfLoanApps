@@ -27,6 +27,7 @@ class ActiveLoanFragment : Fragment(R.layout.fragment_active_loan) {
 
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
+        viewModel.getLoan()
 
         loanAdapter.setOnItemClickListener {
             val action = ActiveLoanFragmentDirections.actionNavActiveLoanToLoanDetailFragment(it)

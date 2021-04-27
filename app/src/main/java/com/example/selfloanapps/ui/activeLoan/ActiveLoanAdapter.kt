@@ -10,7 +10,8 @@ import com.example.selfloanapps.models.local.Loan
 
 class ActiveLoanAdapter : RecyclerView.Adapter<ActiveLoanAdapter.ActiveViewHolder>() {
 
-    inner class ActiveViewHolder(val binding: ItemActiveLoanBinding): RecyclerView.ViewHolder(binding.root)
+    inner class ActiveViewHolder(val binding: ItemActiveLoanBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     private val differCallBack = object : DiffUtil.ItemCallback<Loan>() {
         override fun areItemsTheSame(oldItem: Loan, newItem: Loan): Boolean {
@@ -36,10 +37,11 @@ class ActiveLoanAdapter : RecyclerView.Adapter<ActiveLoanAdapter.ActiveViewHolde
 
     override fun onBindViewHolder(holder: ActiveViewHolder, position: Int) {
         val loan = differ.currentList[position]
-        holder.binding.cvTvLoanId.text = ""
-        holder.binding.cvTvBookListPrev.text = ""
-        holder.binding.cvTvReturnDate.text = ""
-        holder.binding.cvTvDaysLeft.text = ""
+        holder.binding.cvTvLoanId.text = loan.id
+        holder.binding.cvTvBookListPrev.text =
+            loan.book.map { it.title }.joinToString(separator = " | ")
+        holder.binding.cvTvReturnDate.text = loan.dueDate
+        holder.binding.cvTvDaysLeft.text = "10"
         holder.binding.cvActiveLoan.apply {
             setOnClickListener {
                 onItemClickListener?.let { it(loan) }
