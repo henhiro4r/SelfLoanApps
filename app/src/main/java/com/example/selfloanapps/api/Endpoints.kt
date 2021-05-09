@@ -18,6 +18,12 @@ interface Endpoints {
     @POST(Constants.LOGOUT_URL)
     suspend fun logout(@Header("Authorization") bearerToken: String): Response<MessageOnlyResponse>
 
+    @POST(Constants.EXTEND_URL)
+    suspend fun extendTrans(@Header("Authorization") bearerToken: String, @Path("id") transId: Int): Response<MessageOnlyResponse>
+
+    @POST(Constants.RETURN_URL)
+    suspend fun returnTrans(@Header("Authorization") bearerToken: String, @Path("id") transId: Int): Response<MessageOnlyResponse>
+
     @POST(Constants.BLOCK_CARD_URL)
     suspend fun blockCard(@Header("Authorization") bearerToken: String): Response<MessageOnlyResponse>
 
