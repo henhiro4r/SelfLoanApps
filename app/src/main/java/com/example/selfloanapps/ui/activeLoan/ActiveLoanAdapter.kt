@@ -41,7 +41,7 @@ class ActiveLoanAdapter : RecyclerView.Adapter<ActiveLoanAdapter.ActiveViewHolde
         holder.binding.cvTvBookListPrev.text =
             loan.book.map { it.title }.joinToString(separator = " | ")
         holder.binding.cvTvReturnDate.text = loan.dueDate
-        holder.binding.cvTvDaysLeft.text = "10"
+        holder.binding.cvTvDaysLeft.text = loan.daysLeft.toString()
         holder.binding.cvActiveLoan.apply {
             setOnClickListener {
                 onItemClickListener?.let { it(loan) }

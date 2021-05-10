@@ -19,7 +19,7 @@ data class Loan(
     val loanDate: String?,
 
     @SerializedName("days_left")
-    val daysLeft: String?,
+    val daysLeft: Int?,
 
     val fine: String?,
     val status: String?

@@ -2,7 +2,7 @@ package com.example.selfloanapps.utils
 
 class Constants {
     companion object {
-        const val BASE_URL = "http://192.168.1.69/SelfLoans/selfloan-server/public/api/"
+        const val BASE_URL = "http://192.168.15.194/SelfLoans/selfloan-server/public/api/"
         const val LOGIN_URL = "login"
         const val LOGOUT_URL = "logout"
         const val ACTIVE_LOAN_URL = "active-loan"
