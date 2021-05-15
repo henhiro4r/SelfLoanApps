@@ -36,6 +36,9 @@
             app:launchSingleTop="true"
             app:popUpToInclusive="true"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_nav_account_to_splashFragment"
+            app:destination="@id/splashFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"

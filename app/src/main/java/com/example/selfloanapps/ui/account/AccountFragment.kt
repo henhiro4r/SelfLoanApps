@@ -1,28 +1,20 @@
 package com.example.selfloanapps.ui.account
 
 import android.app.AlertDialog
-import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentAccountBinding
-import com.example.selfloanapps.databinding.FragmentLoginBinding
 import com.example.selfloanapps.ui.MainActivity
-import com.example.selfloanapps.ui.history.HistoryFragmentDirections
-import com.example.selfloanapps.ui.login.LoginFragmentDirections
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
-import com.example.selfloanapps.utils.LoginUiState
 import com.example.selfloanapps.utils.MessageRequestUIState
 import com.example.selfloanapps.utils.PrefsManagerHelper
-import kotlinx.android.synthetic.main.fragment_account.*
-import kotlinx.coroutines.flow.collect
+import com.example.selfloanapps.utils.Resource
 
 class AccountFragment : Fragment(R.layout.fragment_account) {
 
@@ -49,42 +41,43 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         }
 
         binding.ibBlock.setOnClickListener {
-            viewModel.blockCard()
+            viewModel.blockCard(helper?.getAccessToken().toString())
         }
 
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.messageRequestUIState.collect{
-                when (it) {
-                    is MessageRequestUIState.Success -> {
-                        Log.e(TAG, "onViewCreated: ${it.response.message}")
-                        if (it.response.message.equals("logged out")) {
-                            helper?.clearPref()
-                            val action = AccountFragmentDirections.actionNavAccountToLoginFragment()
-                            findNavController().navigate(action)
-                        }
-                        Toast.makeText(
-                            activity,
-                            it.response.message,
-                            Toast.LENGTH_SHORT
-                        ).show()
+        viewModel.messageRequestUIState.observe(viewLifecycleOwner, { response ->
+            when (response) {
+                is Resource.Success -> {
+                    Log.e(TAG, "onViewCreated: ${response.data?.message}")
+                    if (response.data?.message.equals("logged out")) {
+                        helper?.clearPref()
+                        val action = AccountFragmentDirections.actionNavAccountToSplashFragment()
+                        findNavController().navigate(action)
+                        val intent = Intent(requireActivity(), MainActivity::class.java)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        startActivity(intent)
                     }
-
-                    is MessageRequestUIState.Error -> {
-                        Log.e(TAG, "onViewCreated: ${it.message}")
-                        Toast.makeText(
-                            activity,
-                            "An error occurred ${it.message}",
-                            Toast.LENGTH_LONG
-                        ).show()
-                    }
-
-                    is MessageRequestUIState.Loading -> {
-
-                    }
-                    else -> Unit
+                    Toast.makeText(
+                        activity,
+                        response.data?.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+
+                is Resource.Error -> {
+                    Log.e(TAG, "onViewCreated: ${response.message}")
+                    Toast.makeText(
+                        activity,
+                        "An error occurred ${response.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+                is Resource.Loading -> {
+
+                }
+                else -> Unit
             }
-        }
+        })
     }
 
     private fun setupUI() {
@@ -98,7 +91,7 @@ class AccountFragment : Fragment(R.layout.fragment_account) {
         builder.setTitle("Confirmation")
         builder.setMessage("Are sure want to logout?")
         builder.setPositiveButton("Yes") { _, _ ->
-            viewModel.logout()
+            viewModel.logout(helper?.getAccessToken().toString())
         }
         builder.setNegativeButton("No") { _, _ ->
 

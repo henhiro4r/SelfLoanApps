@@ -13,7 +13,6 @@ import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentLoginBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.utils.LoginUiState
-import com.example.selfloanapps.utils.PrefsManagerHelper
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.flow.collect
@@ -26,7 +25,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private var email: String = ""
     private var password: String = ""
     private val TAG = "LoginFragment"
-    private var helper: PrefsManagerHelper? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,7 +32,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         viewModel = (activity as MainActivity).loginViewModel
-        helper = PrefsManagerHelper(requireActivity())
 
         binding.tlEmail.editText?.addTextChangedListener { editable ->
             if (editable.toString().isNotEmpty()) {
@@ -62,7 +59,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 when (it) {
                     is LoginUiState.Success -> {
                         isLoading(false)
-                        helper?.storeData(it.response.user, it.response.tokenType, it.response.accessToken)
                         val action = LoginFragmentDirections.actionLoginFragmentToNavActiveLoan()
                         findNavController().navigate(action)
                     }
@@ -93,15 +89,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 return@OnCompleteListener
             }
 
-            // Get new FCM registration token
             val token = task.result.toString()
 
-            // Log and toast
             val msg = getString(R.string.msg_token_fmt, token)
             viewModel.login(email, password, token)
             Log.d(TAG, msg)
             Log.d(TAG, "token: $token")
-            Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show()
         })
     }
 

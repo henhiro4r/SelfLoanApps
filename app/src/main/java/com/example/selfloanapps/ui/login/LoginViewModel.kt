@@ -43,7 +43,6 @@ class LoginViewModel(
                 return LoginUiState.Success(response = results)
             }
         }
-
         return LoginUiState.Error(response.message())
     }
 

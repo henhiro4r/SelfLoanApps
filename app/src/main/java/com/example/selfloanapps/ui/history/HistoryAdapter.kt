@@ -1,12 +1,10 @@
 package com.example.selfloanapps.ui.history
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.ItemHistoryBinding
 import com.example.selfloanapps.models.local.Loan
 

@@ -5,13 +5,13 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentActiveLoanBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
+import com.example.selfloanapps.utils.PrefsManagerHelper
 import com.example.selfloanapps.utils.Resource
 
 class ActiveLoanFragment : Fragment(R.layout.fragment_active_loan) {
@@ -20,14 +20,16 @@ class ActiveLoanFragment : Fragment(R.layout.fragment_active_loan) {
     lateinit var loanAdapter: ActiveLoanAdapter
     private val TAG = "ActiveLoanFragment"
     private lateinit var binding: FragmentActiveLoanBinding
+    private var helper: PrefsManagerHelper? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentActiveLoanBinding.bind(view)
 
+        helper = PrefsManagerHelper(requireActivity())
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
-        viewModel.getLoan()
+        viewModel.getLoan(helper?.getAccessToken().toString())
 
         loanAdapter.setOnItemClickListener {
             val action = ActiveLoanFragmentDirections.actionNavActiveLoanToLoanDetailFragment(it)

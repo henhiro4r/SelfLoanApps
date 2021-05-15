@@ -10,6 +10,7 @@ import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentTapHistoryBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
+import com.example.selfloanapps.utils.PrefsManagerHelper
 import com.example.selfloanapps.utils.Resource
 
 class TapHistoryFragment : Fragment(R.layout.fragment_tap_history) {
@@ -18,15 +19,17 @@ class TapHistoryFragment : Fragment(R.layout.fragment_tap_history) {
     lateinit var tapAdapter: TapAdapter
     private val TAG = "TapHistoryFragment"
     private lateinit var binding: FragmentTapHistoryBinding
+    private var helper: PrefsManagerHelper? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentTapHistoryBinding.bind(view)
 
+        helper = PrefsManagerHelper(requireActivity())
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
 
-        viewModel.getTapHistory()
+        viewModel.getTapHistory(helper?.getAccessToken().toString())
 
         viewModel.tapHistory.observe(viewLifecycleOwner, { response ->
             when (response) {

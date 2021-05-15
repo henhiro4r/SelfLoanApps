@@ -11,6 +11,7 @@ import com.example.selfloanapps.R
 import com.example.selfloanapps.databinding.FragmentHistoryBinding
 import com.example.selfloanapps.ui.MainActivity
 import com.example.selfloanapps.ui.viewModel.SelfLoanViewModel
+import com.example.selfloanapps.utils.PrefsManagerHelper
 import com.example.selfloanapps.utils.Resource
 
 class HistoryFragment : Fragment(R.layout.fragment_history) {
@@ -19,14 +20,16 @@ class HistoryFragment : Fragment(R.layout.fragment_history) {
     lateinit var historyAdapter: HistoryAdapter
     private val TAG = "HistoryFragment"
     private lateinit var binding: FragmentHistoryBinding
+    private var helper: PrefsManagerHelper? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHistoryBinding.bind(view)
 
+        helper = PrefsManagerHelper(requireActivity())
         viewModel = (activity as MainActivity).viewModel
         setupRecyclerView()
-        viewModel.getHistory()
+        viewModel.getHistory(helper?.getAccessToken().toString())
 
         historyAdapter.setOnItemClickListener {
             val action = HistoryFragmentDirections.actionNavHistoryToLoanDetailFragment(it)
